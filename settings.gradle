@@ -1,0 +1,2 @@
+include ':taskmasterapp', ':core', ':data', ':domain', ':presentation'
+rootProject.name='TaskMaster'

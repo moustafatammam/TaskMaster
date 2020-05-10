@@ -1,0 +1,67 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+
+
+    defaultConfig {
+        minSdkVersion versions.minSdkVersion
+        targetSdkVersion versions.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation deps.dagger.dagger
+    annotationProcessor  deps.dagger.daggerCompiler
+    implementation deps.dagger.daggerAndroid
+    implementation deps.dagger.daggerAndroidSupport
+    annotationProcessor deps.dagger.daggerAndroidProcessor
+
+    implementation deps.supportLibrary.androidxLegacyV4
+    implementation deps.appcompat.appcompat
+
+    annotationProcessor  deps.room.roomCompiler
+    implementation deps.room.roomRuntime
+
+    implementation deps.navigation.navigationFragment
+    implementation deps.navigation.navigationUI
+
+    implementation deps.retrofit.retrofit
+    implementation deps.retrofit.gsonConverter
+
+    implementation deps.material.material
+
+    implementation deps.lifecycle.lifecycleExtension
+    implementation deps.lifecycle.lifecycleArch
+
+    implementation deps.glide.glide
+
+    implementation deps.recyclerview.recycleView
+
+    implementation deps.constraint_layout.constraintLayout
+
+    implementation deps.javaxAnnotation.javaxInject
+    implementation deps.javaxAnnotation.javaxAnnotation
+
+    testImplementation deps.testing.mockito
+    testImplementation deps.testing.junitTestImp
+    androidTestImplementation deps.testing.mockitoAndroid
+    androidTestImplementation deps.testing.junitAndroidTestImp
+    androidTestImplementation deps.testing.espressoAndroidTestImp
+}
