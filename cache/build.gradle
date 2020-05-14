@@ -31,17 +31,21 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation project(':domain')
+    implementation project(':data')
 
-    implementation dataDependencies.rxJava
-    implementation dataDependencies.javaxInject
-    implementation dataDependencies.javaxAnnotation
+    implementation cacheDependencies.roomRuntime
+    implementation cacheDependencies.rxJava
+    implementation cacheDependencies.gson
+    implementation cacheDependencies.javaxAnnotation
+    implementation cacheDependencies.javaxInject
+    annotationProcessor cacheDependencies.roomCompiler
 
-    testImplementation dataTestDependencies.junitTestImp
-    testImplementation dataTestDependencies.mockito
-    testImplementation dataTestDependencies.assertj
-
-
+    testImplementation cacheTestDependencies.junitTestImp
+    testImplementation cacheTestDependencies.mockito
+    testImplementation cacheTestDependencies.assertj
+    testImplementation cacheTestDependencies.robolectric
+    testImplementation cacheTestDependencies.roomTesting
+    testImplementation cacheTestDependencies.archTesting
 
 
 }

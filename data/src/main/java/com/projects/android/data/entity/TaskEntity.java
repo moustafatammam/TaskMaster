@@ -1,14 +1,14 @@
 package com.projects.android.data.entity;
 
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
+
+
 
 import java.util.Date;
 
-@Entity(tableName = "task")
+
 public class TaskEntity {
 
-    @PrimaryKey(autoGenerate = true)
+
     private long id;
 
     private String title;

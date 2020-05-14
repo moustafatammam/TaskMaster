@@ -1,0 +1,195 @@
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+ext{
+
+    //libraries
+    dagger = '2.20'
+    appcompat = '1.1.0'
+    gson = '2.8.6'
+    room = '2.2.5'
+    navigation = '2.2.1'
+    retrofit = '2.7.1'
+    supportLibrary = '1.0.0'
+    material = '1.2.0-alpha04'
+    lifecycle = '2.2.0'
+    lifecycle_arch = '2.1.0'
+    androidAnnotations = '28.0.0'
+    glide = '4.11.0'
+    okHttp = '3.12.5'
+    recyclerView  =  '1.1.0'
+    constraint_layout = '1.1.3'
+
+    //android
+    minSdkVersion = '18'
+    targetSdkVersion = '29'
+    versionCode = '1'
+    versionName  = '1.0'
+    compileSdkVersion = '29'
+    buildToolsVersion  =  '29.0.2'
+
+    //testing
+    mockito = '2.7.22'
+    junitTestImp =  '4.13'
+    junitAndroidTestImp = '1.1.1'
+    espresso = '3.2.0'
+    assertJ = '3.8.0'
+    robolectric = '4.3.1'
+    androidSupportRunner = '1.0.0'
+    androidSupportRules = '1.0.0'
+    testCore = '1.0.0'
+
+    rxJava = '2.2.0'
+    rxAndroid = '3.0.0'
+
+    javaxAnnotation = '1.0'
+    javax = '1'
+
+    domainDependencies = [
+            rxJava:          "io.reactivex.rxjava2:rxjava:${rxJava}",
+            javaxAnnotation: "javax.annotation:jsr250-api:${javaxAnnotation}",
+            javaxInject:     "javax.inject:javax.inject:${javax}"
+    ]
+
+    domainTestDependencies = [
+            junitTestImp:    "junit:junit:${junitTestImp}",
+            mockito:         "org.mockito:mockito-core:${mockito}",
+            assertj:          "org.assertj:assertj-core:${assertJ}"
+    ]
+
+    presentationDependencies = [
+            dagger : "com.google.dagger:dagger:${dagger}",
+            daggerCompiler : "com.google.dagger:dagger-compiler:${dagger}",
+            gson:               "com.google.code.gson:gson:${gson}",
+            retrofit : "com.squareup.retrofit2:retrofit:${retrofit}",
+            gsonConverter : "com.squareup.retrofit2:converter-gson:${retrofit}",
+            retrofitAdapter:    "com.squareup.retrofit2:adapter-rxjava2:${retrofit}",
+            lifecycleExtension : "androidx.lifecycle:lifecycle-extensions:${lifecycle}",
+            viewModel: "androidx.lifecycle:lifecycle-viewmodel:${lifecycle}",
+            liveData: "androidx.lifecycle:lifecycle-livedata:${lifecycle}",
+            archRuntime: "androidx.lifecycle:lifecycle-runtime:${lifecycle}",
+            archCompiler: "androidx.lifecycle:lifecycle-compiler:${lifecycle}",
+            okHttp:             "com.squareup.okhttp3:okhttp:${okHttp}",
+            okHttpLogger : "com.squareup.okhttp3:logging-interceptor:${okHttp}",
+            javaxAnnotation: "javax.annotation:jsr250-api:${javaxAnnotation}",
+            javaxInject:     "javax.inject:javax.inject:${javax}",
+            rxJava:          "io.reactivex.rxjava2:rxjava:${rxJava}",
+            rxAndroid:          "io.reactivex.rxjava2:rxandroid:${rxAndroid}",
+            androidAnnotations: "com.android.support:support-annotations:${androidAnnotations}"
+    ]
+
+    presentationTestDependencies = [
+            junitTestImp:    "junit:junit:${junitTestImp}",
+            mockito:         "org.mockito:mockito-core:${mockito}",
+            assertj:          "org.assertj:assertj-core:${assertJ}",
+            robolectric:        "org.robolectric:robolectric:${robolectric}",
+            archTesting:   "androidx.test:core:${testCore}"
+    ]
+
+    dataDependencies = [
+            dagger : "com.google.dagger:dagger:${dagger}",
+            daggerCompiler : "com.google.dagger:dagger-compiler:${dagger}",
+            gson:               "com.google.code.gson:gson:${gson}",
+            retrofit : "com.squareup.retrofit2:retrofit:${retrofit}",
+            gsonConverter : "com.squareup.retrofit2:converter-gson:${retrofit}",
+            retrofitAdapter:    "com.squareup.retrofit2:adapter-rxjava2:${retrofit}",
+            okHttp:             "com.squareup.okhttp3:okhttp:${okHttp}",
+            okHttpLogger : "com.squareup.okhttp3:logging-interceptor:${okHttp}",
+            javaxAnnotation: "javax.annotation:jsr250-api:${javaxAnnotation}",
+            javaxInject:     "javax.inject:javax.inject:${javax}",
+            rxJava:          "io.reactivex.rxjava2:rxjava:${rxJava}",
+            rxAndroid:          "io.reactivex.rxjava2:rxandroid:${rxAndroid}",
+            androidAnnotations: "com.android.support:support-annotations:${androidAnnotations}"
+    ]
+
+    dataTestDependencies = [
+            junitTestImp:    "junit:junit:${junitTestImp}",
+            mockito:         "org.mockito:mockito-core:${mockito}",
+            assertj:          "org.assertj:assertj-core:${assertJ}",
+            robolectric:        "org.robolectric:robolectric:${robolectric}"
+    ]
+
+    cacheDependencies = [
+            dagger : "com.google.dagger:dagger:${dagger}",
+            daggerCompiler : "com.google.dagger:dagger-compiler:${dagger}",
+            gson:               "com.google.code.gson:gson:${gson}",
+            javaxAnnotation: "javax.annotation:jsr250-api:${javaxAnnotation}",
+            javaxInject:     "javax.inject:javax.inject:${javax}",
+            rxJava:          "io.reactivex.rxjava2:rxjava:${rxJava}",
+            androidAnnotations: "com.android.support:support-annotations:${androidAnnotations}",
+            roomCompiler : "androidx.room:room-compiler:${room}",
+            roomRuntime : "androidx.room:room-runtime:${room}",
+            roomRxJava: "androidx.room:room-rxjava2:${room}"
+    ]
+
+    cacheTestDependencies = [
+            junitTestImp:    "junit:junit:${junitTestImp}",
+            mockito:         "org.mockito:mockito-core:${mockito}",
+            assertj:          "org.assertj:assertj-core:${assertJ}",
+            robolectric:        "org.robolectric:robolectric:${robolectric}",
+            roomTesting:     "androidx.room:room-testing:${room}",
+            supportRunner:  "androidx.test:runner:${androidSupportRunner}",
+            supportRules:     "androidx.test:rules:${androidSupportRules}",
+            archTesting:   "androidx.test:core:${testCore}"
+    ]
+
+    remoteTestDependencies = [
+            dagger : "com.google.dagger:dagger:${dagger}",
+            daggerCompiler : "com.google.dagger:dagger-compiler:${dagger}",
+            gson:               "com.google.code.gson:gson:${gson}",
+            retrofit : "com.squareup.retrofit2:retrofit:${retrofit}",
+            gsonConverter : "com.squareup.retrofit2:converter-gson:${retrofit}",
+            retrofitAdapter:    "com.squareup.retrofit2:adapter-rxjava2:${retrofit}",
+            okHttp:             "com.squareup.okhttp3:okhttp:${okHttp}",
+            okHttpLogger : "com.squareup.okhttp3:logging-interceptor:${okHttp}",
+            javaxAnnotation: "javax.annotation:jsr250-api:${javaxAnnotation}",
+            javaxInject:     "javax.inject:javax.inject:${javax}",
+            rxJava:          "io.reactivex.rxjava2:rxjava:${rxJava}",
+            androidAnnotations: "com.android.support:support-annotations:${androidAnnotations}"
+    ]
+
+    remoteTestDependencies = [
+            junitTestImp:    "junit:junit:${junitTestImp}",
+            mockito:         "org.mockito:mockito-core:${mockito}",
+            assertj:          "org.assertj:assertj-core:${assertJ}",
+            supportRunner:  "androidx.test:runner:${androidSupportRunner}",
+            supportRules:     "androidx.test:rules:${androidSupportRules}",
+    ]
+
+    mobileUiDependencies = [
+            dagger : "com.google.dagger:dagger:${dagger}",
+            daggerCompiler : "com.google.dagger:dagger-compiler:${dagger}",
+            javaxAnnotation: "javax.annotation:jsr250-api:${javaxAnnotation}",
+            javaxInject:     "javax.inject:javax.inject:${javax}",
+            rxJava:          "io.reactivex.rxjava2:rxjava:${rxJava}",
+            rxAndroid:          "io.reactivex.rxjava2:rxandroid:${rxAndroid}",
+            androidAnnotations: "com.android.support:support-annotations:${androidAnnotations}",
+            roomCompiler : "androidx.room:room-compiler:${room}",
+            roomRuntime : "androidx.room:room-runtime:${room}",
+            roomRxJava: "androidx.room:room-rxjava2:${room}",
+            glide : "com.github.bumptech.glide:glide:${glide}",
+            recycleView : "androidx.recyclerview:recyclerview:${recyclerView}",
+            androidxLegacyV4 : "androidx.legacy:legacy-support-v4:${supportLibrary}",
+            appcompat : "androidx.appcompat:appcompat:${appcompat}",
+            material : "com.google.android.material:material:${material}",
+            constraintLayout : "androidx.constraintlayout:constraintlayout:${constraint_layout}",
+            daggerAndroidSupport : "com.google.dagger:dagger-android-support:${dagger}",
+            daggerAndroidProcessor : "com.google.dagger:dagger-android-processor:${dagger}",
+            navigationFragment : "androidx.navigation:navigation-fragment:${navigation}",
+            navigationUI : "androidx.navigation:navigation-ui:${navigation}"
+    ]
+    mobileUiTestDependencies = [
+            junitTestImp:    "junit:junit:${junitTestImp}",
+            mockito:         "org.mockito:mockito-core:${mockito}",
+            assertj:          "org.assertj:assertj-core:${assertJ}",
+            supportRunner:  "androidx.test:runner:${androidSupportRunner}",
+            supportRules:     "androidx.test:rules:${androidSupportRules}",
+            mockitoAndroid: "org.mockito:mockito-android:${mockito}",
+            espressoCore: "androidx.test.espresso:espresso-core:${espresso}",
+            espressoIntents: "androidx.test.espresso:espresso-intents:${espresso}",
+            espressoContrib: "androidx.test.espresso:espresso-contrib:${espresso}"
+    ]
+}

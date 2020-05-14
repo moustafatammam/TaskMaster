@@ -11,9 +11,7 @@ public interface TaskRepository {
 
     Completable insert(Task task);
 
-    Completable update(long id);
-
-    Completable delete(long id);
+    Completable delete(Task task);
 
     Observable<Task> getTaskById(long id);
 

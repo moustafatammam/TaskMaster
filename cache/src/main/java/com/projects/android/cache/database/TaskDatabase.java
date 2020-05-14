@@ -1,4 +1,4 @@
-package com.projects.android.data.localData;
+package com.projects.android.cache.database;
 
 import android.content.Context;
 import android.util.Log;
@@ -7,17 +7,25 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.projects.android.data.entity.TaskEntity;
+import com.projects.android.cache.dao.TaskDao;
+import com.projects.android.cache.model.CachedTask;
 
-@Database(entities = {TaskEntity.class},
-version = 1,
-exportSchema = false)
+import javax.inject.Inject;
+
+@Database(entities = {CachedTask.class},
+        version = 1,
+        exportSchema = false)
 public abstract class TaskDatabase extends RoomDatabase {
+
     private static final String LOG_TAG = TaskDatabase.class.getSimpleName();
     private static final Object LOCK = new Object();
     private static final String DATABASE_NAME = "taskList";
 
     private static TaskDatabase sDatabaseInstance;
+
+    @Inject
+    TaskDatabase(){}
+
 
     public static TaskDatabase getInstance(Context context){
         if(sDatabaseInstance == null){

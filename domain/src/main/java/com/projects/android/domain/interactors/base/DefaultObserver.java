@@ -1,4 +1,4 @@
-package com.projects.android.domain.interactors;
+package com.projects.android.domain.interactors.base;
 
 import io.reactivex.observers.DisposableObserver;
 

@@ -27,9 +27,12 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation deps.rxJava.rxJava
-    implementation deps.javaxAnnotation.javaxInject
-    implementation deps.javaxAnnotation.javaxAnnotation
-    testImplementation deps.testing.mockito
-    testImplementation deps.testing.junitTestImp
+
+    implementation domainDependencies.rxJava
+    implementation domainDependencies.javaxInject
+    implementation domainDependencies.javaxAnnotation
+
+    testImplementation domainTestDependencies.mockito
+    testImplementation domainTestDependencies.junitTestImp
+    testImplementation domainTestDependencies.assertj
 }

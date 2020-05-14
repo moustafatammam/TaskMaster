@@ -1,25 +1,39 @@
-package com.projects.android.domain.model;
+package com.projects.android.presentation.model;
 
 import java.util.Date;
 
-public class Task {
+public class PresentationTask {
 
-    private  long id;
+    private long id;
+
     private String title;
+
     private int priority;
+
     private Date date;
+
     private String comment;
+
     private String label;
+
     private boolean status;
 
-    public Task(long id, String title, int priority, Date date, String comment, String label, boolean status) {
-        this.title = title;
+    public PresentationTask(long id, String title, int priority, Date date, String comment, String label, boolean status) {
         this.id = id;
+        this.title = title;
         this.priority = priority;
         this.date = date;
         this.comment = comment;
         this.label = label;
         this.status = status;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -29,11 +43,6 @@ public class Task {
     public void setTitle(String title) {
         this.title = title;
     }
-
-    public long getId() {
-        return id;
-    }
-
 
     public int getPriority() {
         return priority;
@@ -73,30 +82,5 @@ public class Task {
 
     public void setStatus(boolean status) {
         this.status = status;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if(this == obj){
-            return true;
-        }
-        if(obj == null || getClass() != obj.getClass()){
-            return false;
-        }
-        Task task = (Task) obj;
-        return id == task.id;
-    }
-
-    @Override
-    public String toString() {
-        return "Task {" +
-                "id-" + id +
-                ", title-" + title +
-                ", comment" + comment +
-                ", date" + date +
-                ", priority" + priority +
-                ", label" + label +
-                "}";
-
     }
 }
