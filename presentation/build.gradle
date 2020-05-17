@@ -21,6 +21,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
 
 }
 
@@ -36,11 +40,11 @@ dependencies {
     implementation presentationDependencies.lifecycleExtension
     annotationProcessor  presentationDependencies.archCompiler
 
-    implementation presentationTestDependencies.junitTestImp
-    implementation presentationTestDependencies.mockito
-    implementation presentationTestDependencies.assertj
-    implementation presentationTestDependencies.robolectric
-    implementation presentationTestDependencies.archTesting
+    testImplementation presentationTestDependencies.junitTestImp
+    testImplementation presentationTestDependencies.mockito
+    testImplementation presentationTestDependencies.assertj
+    testImplementation presentationTestDependencies.robolectric
+    testImplementation presentationTestDependencies.archTesting
 
 
 

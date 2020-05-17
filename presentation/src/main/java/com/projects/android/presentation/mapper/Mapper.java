@@ -8,4 +8,6 @@ public interface Mapper<D, V> {
      * @return  v presentationTask
      */
     V mapToPreModel(D d);
+
+    D mapFromPreModel(V v);
 }

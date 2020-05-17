@@ -43,7 +43,7 @@ ext{
     testCore = '1.0.0'
 
     rxJava = '2.2.0'
-    rxAndroid = '3.0.0'
+    rxAndroid = '2.1.1'
 
     javaxAnnotation = '1.0'
     javax = '1'
@@ -159,7 +159,7 @@ ext{
             supportRules:     "androidx.test:rules:${androidSupportRules}",
     ]
 
-    mobileUiDependencies = [
+    uiDependencies = [
             dagger : "com.google.dagger:dagger:${dagger}",
             daggerCompiler : "com.google.dagger:dagger-compiler:${dagger}",
             javaxAnnotation: "javax.annotation:jsr250-api:${javaxAnnotation}",
@@ -181,7 +181,7 @@ ext{
             navigationFragment : "androidx.navigation:navigation-fragment:${navigation}",
             navigationUI : "androidx.navigation:navigation-ui:${navigation}"
     ]
-    mobileUiTestDependencies = [
+    uiTestDependencies = [
             junitTestImp:    "junit:junit:${junitTestImp}",
             mockito:         "org.mockito:mockito-core:${mockito}",
             assertj:          "org.assertj:assertj-core:${assertJ}",

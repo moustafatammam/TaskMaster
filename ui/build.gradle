@@ -1,0 +1,67 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+
+
+    defaultConfig {
+        minSdkVersion 18
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(':presentation')
+    implementation project(':data')
+    implementation project(':cache')
+
+    implementation uiDependencies.javaxInject
+    implementation uiDependencies.javaxAnnotation
+    implementation uiDependencies.rxJava
+    implementation uiDependencies.androidAnnotations
+    implementation uiDependencies.androidxLegacyV4
+    implementation uiDependencies.appcompat
+    implementation uiDependencies.recycleView
+    implementation uiDependencies.navigationFragment
+    implementation uiDependencies.navigationUI
+    implementation uiDependencies.material
+    implementation uiDependencies.rxAndroid
+    implementation uiDependencies.dagger
+    implementation uiDependencies.daggerAndroidSupport
+    implementation presentationDependencies.archRuntime
+    implementation presentationDependencies.lifecycleExtension
+    implementation uiDependencies.roomRxJava
+
+    annotationProcessor presentationDependencies.archCompiler
+    annotationProcessor uiDependencies.daggerCompiler
+    annotationProcessor uiDependencies.daggerAndroidProcessor
+
+    androidTestImplementation uiTestDependencies.junitTestImp
+    androidTestImplementation uiTestDependencies.mockito
+    androidTestImplementation uiTestDependencies.mockitoAndroid
+    androidTestImplementation uiTestDependencies.espressoCore
+    androidTestImplementation uiTestDependencies.supportRunner
+    androidTestImplementation uiTestDependencies.supportRules
+    androidTestImplementation uiTestDependencies.espressoIntents
+    androidTestImplementation uiTestDependencies.espressoContrib
+
+    androidTestImplementation uiDependencies.daggerCompiler
+    testImplementation uiDependencies.daggerCompiler
+
+}

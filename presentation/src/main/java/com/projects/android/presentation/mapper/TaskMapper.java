@@ -15,4 +15,10 @@ public class TaskMapper implements Mapper<Task, PresentationTask> {
         return new PresentationTask(task.getId(), task.getTitle(), task.getPriority(), task.getDate(),
                 task.getComment(), task.getLabel(), task.getStatus());
     }
+
+    @Override
+    public Task mapFromPreModel(PresentationTask presentationTask) {
+        return new Task(presentationTask.getId(), presentationTask.getTitle(), presentationTask.getPriority(), presentationTask.getDate(),
+                presentationTask.getComment(), presentationTask.getLabel(), presentationTask.getStatus());
+    }
 }
