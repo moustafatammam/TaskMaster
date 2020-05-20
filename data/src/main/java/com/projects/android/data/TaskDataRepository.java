@@ -37,6 +37,11 @@ public class TaskDataRepository implements TaskRepository {
     }
 
     @Override
+    public Completable update(Task task) {
+        return null;
+    }
+
+    @Override
     public Observable<Task> getTaskById(long id) {
         return mTaskDataStoreFactory.retrieveCacheDataStore().getTaskById(id)
                 .map(taskEntity -> mTaskMapper.mapFromEntity(taskEntity));

@@ -3,13 +3,14 @@ package com.projects.android.domain.interactors.impl;
 import com.projects.android.domain.executor.PostExecutionThread;
 import com.projects.android.domain.executor.ThreadExecutor;
 import com.projects.android.domain.interactors.base.CompletableAbstractInteractor;
+import com.projects.android.domain.model.Task;
 import com.projects.android.domain.repository.TaskRepository;
 
 import javax.inject.Inject;
 
 import io.reactivex.Completable;
 
-public class UpdateTaskInteractorImp extends CompletableAbstractInteractor<Long> {
+public class UpdateTaskInteractorImp extends CompletableAbstractInteractor<Task> {
 
     private final TaskRepository mTaskRepository;
 
@@ -21,7 +22,7 @@ public class UpdateTaskInteractorImp extends CompletableAbstractInteractor<Long>
 
 
     @Override
-    public Completable buildInteractorCompletable(Long id) {
-        return mTaskRepository.update(id);
+    public Completable buildInteractorCompletable(Task task) {
+        return mTaskRepository.update(task);
     }
 }

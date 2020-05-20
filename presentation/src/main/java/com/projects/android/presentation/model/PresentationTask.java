@@ -16,9 +16,9 @@ public class PresentationTask {
 
     private String label;
 
-    private boolean status;
+    private int status;
 
-    public PresentationTask(long id, String title, int priority, Date date, String comment, String label, boolean status) {
+    public PresentationTask(long id, String title, int priority, Date date, String comment, String label, int status) {
         this.id = id;
         this.title = title;
         this.priority = priority;
@@ -76,11 +76,11 @@ public class PresentationTask {
         this.label = label;
     }
 
-    public boolean getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 }

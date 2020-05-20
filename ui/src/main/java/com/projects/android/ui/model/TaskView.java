@@ -15,9 +15,9 @@ public class TaskView {
 
     private String label;
 
-    private boolean status;
+    private int status;
 
-    public TaskView(long id, String title, int priority, Date date, String comment, String label, boolean status) {
+    public TaskView(long id, String title, int priority, Date date, String comment, String label, int status) {
         this.id = id;
         this.title = title;
         this.priority = priority;
@@ -75,11 +75,11 @@ public class TaskView {
         this.label = label;
     }
 
-    public boolean getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 }

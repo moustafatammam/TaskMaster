@@ -10,9 +10,9 @@ public class Task {
     private Date date;
     private String comment;
     private String label;
-    private boolean status;
+    private int status;
 
-    public Task(long id, String title, int priority, Date date, String comment, String label, boolean status) {
+    public Task(long id, String title, int priority, Date date, String comment, String label, int status) {
         this.title = title;
         this.id = id;
         this.priority = priority;
@@ -67,11 +67,11 @@ public class Task {
         this.label = label;
     }
 
-    public boolean getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 

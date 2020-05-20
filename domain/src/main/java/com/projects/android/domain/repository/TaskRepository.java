@@ -13,6 +13,8 @@ public interface TaskRepository {
 
     Completable delete(Task task);
 
+    Completable update(Task task);
+
     Observable<Task> getTaskById(long id);
 
     Observable<List<Task>> getAllTasks();
