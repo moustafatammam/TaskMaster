@@ -1,111 +1,171 @@
 package com.projects.android.ui.userInterface.fragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.Toast;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
+import com.projects.android.domain.model.Task;
+import com.projects.android.presentation.ViewModelFactory;
+import com.projects.android.presentation.resource.Resource;
+import com.projects.android.presentation.resource.State;
+import com.projects.android.presentation.viewModel.AddTaskViewModel;
 import com.projects.android.ui.R;
+import com.projects.android.ui.databinding.FragmentAddTaskBinding;
+import com.projects.android.ui.mapper.TaskMapper;
+import com.projects.android.ui.model.TaskView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link AddTaskFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link AddTaskFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.inject.Inject;
+
+
 public class AddTaskFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private FragmentAddTaskBinding fragmentAddTaskBinding;
+    private EditText titleEditText;
+    private EditText labelEditText;
+    private EditText commentEditText;
 
-    private OnFragmentInteractionListener mListener;
+    private Button addTaskButton;
+    private Button cancelButton;
 
-    public AddTaskFragment() {
-        // Required empty public constructor
-    }
+    private RadioButton priorityHighButton;
+    private RadioButton priorityMediumButton;
+    private RadioButton priorityLowButton;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AddTaskFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AddTaskFragment newInstance(String param1, String param2) {
-        AddTaskFragment fragment = new AddTaskFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private Date currentDate;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
+    private AddTaskViewModel addTaskViewModel;
+    private ViewModelFactory viewModelFactory;
+    private TaskMapper taskMapper;
+
+    @Inject
+    public AddTaskFragment(ViewModelFactory viewModelFactory, TaskMapper taskMapper) {
+        this.viewModelFactory = viewModelFactory;
+        this.taskMapper = taskMapper;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_task, container, false);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+        fragmentAddTaskBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_task, container, false);
+        return fragmentAddTaskBinding.getRoot();
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        setupTaskDetails();
+        addTaskViewModel = new ViewModelProvider(this, viewModelFactory).get(AddTaskViewModel.class);
+
+        addTaskButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setupTaskData();
+
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(cancelButton).navigate(R.id.action_addTaskFragment_to_taskListFragment);
+            }
+        });
+    }
+
+    private void setupTaskData(){
+
+        titleEditText.setError(null);
+        labelEditText.setError(null);
+        commentEditText.setError(null);
+        boolean cancel = false;
+        View focusView = null;
+
+        String titleText = titleEditText.getText().toString();
+
+        if(titleText.isEmpty()){
+            titleEditText.setError("title can not be empty");
+            focusView = titleEditText;
+            cancel = true;
+        }
+        String labelText = labelEditText.getText().toString();
+        if(labelText.isEmpty()){
+            labelEditText.setError("label can not be empty");
+            focusView = labelEditText;
+            cancel = true;
+        }
+        String descriptionText = commentEditText.getText().toString();
+        if(descriptionText.isEmpty()){
+            commentEditText.setError("description can not be empty");
+            focusView = commentEditText;
+            cancel = true;
+        }
+        currentDate = new Date();
+
+        int priority;
+        if (priorityHighButton.isChecked()){
+            priority = 1;
+        }else if(priorityLowButton.isChecked()){
+            priority = 2;
+        }else{
+            priority = 3;
+        }
+        if (cancel){
+            focusView.requestFocus();
+
+        }else{
+           TaskView taskView = new TaskView(titleText, priority, currentDate, descriptionText, labelText, 0);
+           addTask(taskView);
+           Navigation.findNavController(addTaskButton).navigate(R.id.action_addTaskFragment_to_taskListFragment);
         }
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
+    public void addTask(TaskView task){
+
+        addTaskViewModel.addTask(taskMapper.mapFromTaskView(task)).observe(this, new Observer<Resource<String>>() {
+            @Override
+            public void onChanged(Resource<String> stringResource) {
+                if(stringResource.mStatus == State.SUCCESS){
+                    Snackbar snackbar = Snackbar.make(fragmentAddTaskBinding.constraintLayout, stringResource.mMessage, BaseTransientBottomBar.LENGTH_LONG);
+                    snackbar.show();
+                }else{
+                    Toast toast = Toast.makeText(getContext(), stringResource.mMessage, Toast.LENGTH_LONG);
+                    toast.show();
+                }
+            }
+        });
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    private void setupTaskDetails(){
+        titleEditText = fragmentAddTaskBinding.editTextTitleContent;
+        labelEditText = fragmentAddTaskBinding.editTextLabelContent;
+        commentEditText = fragmentAddTaskBinding.editTextCommentContent;
+
+        addTaskButton = fragmentAddTaskBinding.addTaskButton;
+        cancelButton = fragmentAddTaskBinding.cancelButton;
+
+        priorityHighButton = fragmentAddTaskBinding.highButton;
+        priorityMediumButton = fragmentAddTaskBinding.mediumButton;
+        priorityLowButton = fragmentAddTaskBinding.lowButton;
     }
 }

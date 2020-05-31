@@ -1,9 +1,13 @@
 package com.projects.android.presentation;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.projects.android.presentation.viewModel.TaskListViewModel;
 
 import java.util.Map;
 
@@ -14,21 +18,21 @@ import javax.inject.Singleton;
 @Singleton
 public class ViewModelFactory implements ViewModelProvider.Factory {
 
-    private Map<Class<ViewModel> , Provider<ViewModel>> viewModelMap;
+    private Map<Class<? extends ViewModel> , Provider<ViewModel>> viewModelMap;
+
 
     @Inject
-    public ViewModelFactory(Map<Class<ViewModel>, Provider<ViewModel>> viewModelMap) {
+    public ViewModelFactory(Map<Class<? extends ViewModel>, Provider<ViewModel>> viewModelMap) {
         this.viewModelMap = viewModelMap;
     }
     @SuppressWarnings("unchecked")
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-
-        @Nullable
-        Provider<ViewModel> creator = viewModelMap.get(modelClass);
+        Provider<? extends ViewModel> creator = viewModelMap.get(modelClass);
         if (creator == null) {
-            for (Map.Entry<Class<ViewModel> , Provider<ViewModel>> entry : viewModelMap.entrySet()){
+            Log.e("asd", "error");
+            for (Map.Entry<Class<? extends ViewModel> , Provider<ViewModel>> entry : viewModelMap.entrySet()){
                 if (modelClass.isAssignableFrom(entry.getKey())){
                     creator = entry.getValue();
                     break;
@@ -36,6 +40,7 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
             }
         }
         if(creator == null){
+            Log.e("asd", "error");
             throw new IllegalArgumentException("unknown model class" + modelClass);
         }
 

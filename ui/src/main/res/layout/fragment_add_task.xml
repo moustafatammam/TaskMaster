@@ -1,14 +1,195 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="addTaskViewModel"
+            type="com.projects.android.presentation.viewModel.AddTaskViewModel" />
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/constraint_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".userInterface.fragment.AddTaskFragment">
+    tools:context=".userInterface.fragment.AddTaskFragment"
+    android:background="@color/colorSecondaryLight">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/edit_task_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/edit_text"
+        android:padding="6dp"
+        android:text="Title"
+        android:textColor="@color/colorPrimaryDark"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/edit_text_title_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:background="@drawable/edit_text"
+        android:hint="Write Your Task Title"
+        android:cursorVisible="true"
+        android:textCursorDrawable="@null"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:maxLength="15"
+        android:padding="10dp"
+        android:nextFocusForward="@id/edit_text_label_content"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_task_title"
+        app:layout_constraintStart_toEndOf="@+id/edit_task_title"
+        app:layout_constraintTop_toTopOf="@+id/edit_task_title" />
+
+    <TextView
+        android:id="@+id/edit_task_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/edit_text"
+        android:padding="6dp"
+        android:text="Label"
+        android:textColor="@color/colorPrimaryDark"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        app:layout_constraintStart_toStartOf="@+id/edit_task_title"
+        app:layout_constraintTop_toBottomOf="@+id/edit_task_title" />
+
+    <EditText
+        android:id="@+id/edit_text_label_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/edit_text"
+        android:hint="Write Your Task Label"
+        android:textCursorDrawable="@null"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:maxLength="10"
+        android:padding="10dp"
+        android:nextFocusForward="@id/edit_text_comment_content"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_task_label"
+        app:layout_constraintStart_toStartOf="@+id/edit_text_title_content"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_title_content"
+        app:layout_constraintVertical_bias="0.545" />
+
+    <TextView
+        android:id="@+id/edit_task_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/edit_text"
+        android:padding="6dp"
+        android:text="Description"
+        android:textColor="@color/colorPrimaryDark"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        app:layout_constraintStart_toStartOf="@+id/edit_task_title"
+        app:layout_constraintTop_toBottomOf="@+id/edit_task_label" />
+
+    <EditText
+        android:id="@+id/edit_text_comment_content"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/edit_text"
+        android:hint="Write Your Task Description"
+        android:imeOptions="actionDone"
+        android:inputType="textImeMultiLine"
+        android:maxLength="100"
+        android:nextFocusForward="@id/add_task_button"
+        android:padding="10dp"
+
+        android:textCursorDrawable="@null"
+        app:layout_constraintStart_toStartOf="@+id/edit_task_comment"
+        app:layout_constraintTop_toBottomOf="@+id/edit_task_comment" />
+
+    <Button
+        android:id="@+id/add_task_button"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:text="add task"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/cancel_button"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="24dp"
+        android:text="Cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/add_task_button"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/edit_task_priority"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/edit_text"
+        android:padding="6dp"
+        android:text="Priority"
+        android:textColor="@color/colorPrimaryDark"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        app:layout_constraintStart_toStartOf="@+id/edit_text_comment_content"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_comment_content" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/cancel_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_task_priority">
+
+        <RadioButton
+            android:id="@+id/high_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="@drawable/high_selector"
+            android:button="@android:color/transparent"
+            android:checked="true"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="High"
+            android:textSize="10sp" />
+
+        <RadioButton
+            android:id="@+id/medium_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="@drawable/medium_selector"
+            android:button="@android:color/transparent"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Medium"
+            android:textSize="10sp" />
+
+        <RadioButton
+            android:id="@+id/low_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="@drawable/low_selector"
+            android:button="@android:color/transparent"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Low"
+            android:textSize="10sp" />
+    </RadioGroup>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

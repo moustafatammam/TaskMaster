@@ -34,6 +34,9 @@ public class Task {
         return id;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public int getPriority() {
         return priority;
@@ -75,28 +78,5 @@ public class Task {
         this.status = status;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if(this == obj){
-            return true;
-        }
-        if(obj == null || getClass() != obj.getClass()){
-            return false;
-        }
-        Task task = (Task) obj;
-        return id == task.id;
-    }
 
-    @Override
-    public String toString() {
-        return "Task {" +
-                "id-" + id +
-                ", title-" + title +
-                ", comment" + comment +
-                ", date" + date +
-                ", priority" + priority +
-                ", label" + label +
-                "}";
-
-    }
 }

@@ -7,9 +7,9 @@ import javax.inject.Inject;
 
 public class Resource<T> {
 
-    private State mStatus;
-    private  String mMessage;
-    private T mData;
+    public State mStatus;
+    public  String mMessage;
+    public T mData;
 
     @Inject
     public Resource(State mStatus, T mData, String mMessage){

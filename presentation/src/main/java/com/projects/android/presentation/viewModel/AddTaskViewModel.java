@@ -1,5 +1,8 @@
 package com.projects.android.presentation.viewModel;
 
+import android.util.Log;
+
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import com.projects.android.domain.interactors.impl.AddTaskInteractorImp;
@@ -31,7 +34,8 @@ public class AddTaskViewModel extends ViewModel {
         super.onCleared();
     }
 
-    private MutableLiveData<Resource<String>> addTask(PresentationTask preTask) {
+
+    public LiveData<Resource<String>> addTask(PresentationTask preTask) {
         completableLiveData.postValue(new Resource<>(State.LOADING, null, null));
         mAddTaskInteractorImp.execute(new AddTaskCompletable(), mTaskMapper.mapFromPreModel(preTask));
         return completableLiveData;
@@ -47,6 +51,8 @@ public class AddTaskViewModel extends ViewModel {
 
         @Override
         public void onError(Throwable e) {
+            Log.e("viewmodel", e.getMessage());
+
             completableLiveData.postValue(new Resource<>(State.ERROR, null, e.getMessage()));
         }
     }

@@ -3,19 +3,27 @@ package com.projects.android.ui;
 import android.app.Activity;
 import android.app.Application;
 
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentFactory;
+import androidx.navigation.fragment.NavHostFragment;
+
 import com.projects.android.ui.di.DaggerApplicationComponent;
 
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
-import dagger.android.HasActivityInjector;
 
-public class TaskApplication extends Application implements HasActivityInjector {
+import dagger.android.HasAndroidInjector;
+
+
+public class TaskApplication extends Application implements HasAndroidInjector {
 
 
     @Inject
-     DispatchingAndroidInjector<Activity> activityDispatchingAndroidInjector;
+     DispatchingAndroidInjector<Object> activityDispatchingAndroidInjector;
+
 
     @Override
     public void onCreate() {
@@ -27,8 +35,10 @@ public class TaskApplication extends Application implements HasActivityInjector 
     }
 
 
+
+
     @Override
-    public AndroidInjector<Activity> activityInjector() {
+    public AndroidInjector androidInjector() {
         return activityDispatchingAndroidInjector;
     }
 }

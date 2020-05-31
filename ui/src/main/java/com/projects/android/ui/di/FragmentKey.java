@@ -1,8 +1,7 @@
 package com.projects.android.ui.di;
 
-import androidx.lifecycle.ViewModel;
 
-import java.lang.annotation.Documented;
+import androidx.fragment.app.Fragment;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -10,11 +9,10 @@ import java.lang.annotation.Target;
 
 import dagger.MapKey;
 
-@Documented
-@Target(ElementType.METHOD)
+@Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @MapKey
-public @interface ViewModelKey {
+public @interface FragmentKey {
 
-     Class<? extends ViewModel> value();
+    Class<? extends Fragment> value();
 }

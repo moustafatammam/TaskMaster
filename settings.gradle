@@ -1,2 +1,2 @@
-include ':data', ':domain', ':presentation', ':cache', ':ui'
+include ':ui',':data', ':domain', ':presentation', ':cache'
 rootProject.name='TaskMaster'

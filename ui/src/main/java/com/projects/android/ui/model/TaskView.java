@@ -17,6 +17,15 @@ public class TaskView {
 
     private int status;
 
+    public TaskView(String title, int priority, Date date, String comment, String label, int status) {
+        this.title = title;
+        this.priority = priority;
+        this.date = date;
+        this.comment = comment;
+        this.label = label;
+        this.status = status;
+    }
+
     public TaskView(long id, String title, int priority, Date date, String comment, String label, int status) {
         this.id = id;
         this.title = title;

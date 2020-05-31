@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.projects.android.presentation.ViewModelFactory;
+import com.projects.android.presentation.viewModel.AddTaskViewModel;
 import com.projects.android.presentation.viewModel.TaskListViewModel;
 import com.projects.android.ui.di.ViewModelKey;
 
@@ -17,7 +18,12 @@ public abstract class PresentationModule {
     @Binds
     @IntoMap
     @ViewModelKey(TaskListViewModel.class)
-    abstract ViewModel bindTaskListViewModel(TaskListViewModel taskListViewModel);
+    public abstract ViewModel bindTaskListViewModel(TaskListViewModel taskListViewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AddTaskViewModel.class)
+    abstract ViewModel bindAddTaskViewModel(AddTaskViewModel addTaskViewModel);
 
     @Binds
     abstract ViewModelProvider.Factory  bindViewModelFactory(ViewModelFactory viewModelFactory);

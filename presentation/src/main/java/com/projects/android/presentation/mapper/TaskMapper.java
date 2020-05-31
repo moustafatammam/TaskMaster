@@ -1,5 +1,7 @@
 package com.projects.android.presentation.mapper;
 
+import android.util.Log;
+
 import com.projects.android.domain.model.Task;
 import com.projects.android.presentation.model.PresentationTask;
 
@@ -18,6 +20,8 @@ public class TaskMapper implements Mapper<Task, PresentationTask> {
 
     @Override
     public Task mapFromPreModel(PresentationTask presentationTask) {
+        Log.e("mapper pres", "pres");
+
         return new Task(presentationTask.getId(), presentationTask.getTitle(), presentationTask.getPriority(), presentationTask.getDate(),
                 presentationTask.getComment(), presentationTask.getLabel(), presentationTask.getStatus());
     }

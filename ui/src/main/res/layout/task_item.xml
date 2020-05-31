@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="taskView"
+            type="com.projects.android.ui.model.TaskView" />
+    </data>
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="1dp"
+    android:fitsSystemWindows="true"
+    android:padding="10dp"
+    android:background="@drawable/background_layout">
+
+
+    <TextView
+        android:id="@+id/task_item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/edit_text"
+        android:padding="4dp"
+        android:maxLines="1"
+        android:text="@{taskView.title}"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Get up Task" />
+
+    <TextView
+        android:id="@+id/task_item_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text"
+        android:padding="4dp"
+        android:maxLines="1"
+        android:text="@{taskView.label}"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.073"
+        app:layout_constraintStart_toEndOf="@+id/task_item_title"
+        app:layout_constraintTop_toTopOf="@+id/task_item_title"
+        tools:text="work" />
+
+    <TextView
+        android:id="@+id/task_item_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/edit_text"
+        android:padding="4dp"
+        android:maxLines="1"
+        android:text="29/05/2020 9:31"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintStart_toStartOf="@+id/task_item_title"
+        app:layout_constraintTop_toBottomOf="@+id/task_item_title" />
+
+    <TextView
+        android:id="@+id/task_item_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/edit_text"
+        android:padding="4dp"
+        android:text="@{taskView.comment}"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintStart_toStartOf="@+id/task_item_date"
+        app:layout_constraintTop_toBottomOf="@+id/task_item_date"
+        tools:text="getting up every morning at 6 AM to develop applications, asdgasdgasjdgasjdgasdgasjkdghasdghasdgajsdghaklsjdhaklsjhajksbaskjdgajslgdaklsgdakgsdjasgdjkasdhasdasdasdas" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/circle_high_priority"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/task_item_label" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

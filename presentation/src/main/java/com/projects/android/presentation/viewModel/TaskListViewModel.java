@@ -21,6 +21,8 @@ public class TaskListViewModel extends ViewModel {
     private MutableLiveData<Resource<List<PresentationTask>>> tasksLiveData = new MutableLiveData<>();
 
 
+
+
     @Inject
     public TaskListViewModel(GetAllTasksInteractorImp mGetAllTasks, TaskMapper mTaskMapper) {
         this.mGetAllTasks = mGetAllTasks;
@@ -29,13 +31,14 @@ public class TaskListViewModel extends ViewModel {
     }
 
 
+
     @Override
     protected void onCleared() {
         mGetAllTasks.dispose();
         super.onCleared();
     }
 
-    public void fetchTasks(){
+    private void fetchTasks(){
         tasksLiveData.postValue(new Resource<>(State.LOADING, null, null));
         mGetAllTasks.execute(new TasksObserver(), null);
     }
