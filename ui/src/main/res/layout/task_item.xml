@@ -58,6 +58,7 @@
         android:background="@drawable/edit_text"
         android:padding="4dp"
         android:maxLines="1"
+        app:date="@{taskView.date}"
         android:text="29/05/2020 9:31"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
         android:textColor="@color/colorPrimaryDark"
@@ -83,7 +84,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="40dp"
-        android:background="@drawable/circle_high_priority"
+        app:imageUrl="@{taskView.priority}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/task_item_label" />
 

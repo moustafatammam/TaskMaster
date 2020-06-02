@@ -20,7 +20,7 @@ public class AddTaskViewModel extends ViewModel {
     private AddTaskInteractorImp mAddTaskInteractorImp;
     private TaskMapper mTaskMapper;
 
-    private MutableLiveData<Resource<String>> completableLiveData = new MutableLiveData<>();
+    private MutableLiveData<Resource<String>> addTaskCompletableLiveData = new MutableLiveData<>();
 
     @Inject
     public AddTaskViewModel(AddTaskInteractorImp mAddTaskInteractorImp, TaskMapper mTaskMapper) {
@@ -36,9 +36,9 @@ public class AddTaskViewModel extends ViewModel {
 
 
     public LiveData<Resource<String>> addTask(PresentationTask preTask) {
-        completableLiveData.postValue(new Resource<>(State.LOADING, null, null));
+        addTaskCompletableLiveData.postValue(new Resource<>(State.LOADING, null, null));
         mAddTaskInteractorImp.execute(new AddTaskCompletable(), mTaskMapper.mapFromPreModel(preTask));
-        return completableLiveData;
+        return addTaskCompletableLiveData;
     }
 
     class AddTaskCompletable extends DisposableCompletableObserver {
@@ -46,14 +46,12 @@ public class AddTaskViewModel extends ViewModel {
         @Override
         public void onComplete() {
             String toastMsg = "Task Added Successfully";
-            completableLiveData.postValue(new Resource<>(State.SUCCESS, toastMsg, null));
+            addTaskCompletableLiveData.postValue(new Resource<>(State.SUCCESS, toastMsg, null));
         }
 
         @Override
         public void onError(Throwable e) {
-            Log.e("viewmodel", e.getMessage());
-
-            completableLiveData.postValue(new Resource<>(State.ERROR, null, e.getMessage()));
+            addTaskCompletableLiveData.postValue(new Resource<>(State.ERROR, null, e.getMessage()));
         }
     }
 }

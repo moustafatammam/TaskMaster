@@ -125,7 +125,7 @@ public class AddTaskFragment extends Fragment {
         int priority;
         if (priorityHighButton.isChecked()){
             priority = 1;
-        }else if(priorityLowButton.isChecked()){
+        }else if(priorityMediumButton.isChecked()){
             priority = 2;
         }else{
             priority = 3;
@@ -146,11 +146,9 @@ public class AddTaskFragment extends Fragment {
             @Override
             public void onChanged(Resource<String> stringResource) {
                 if(stringResource.mStatus == State.SUCCESS){
-                    Snackbar snackbar = Snackbar.make(fragmentAddTaskBinding.constraintLayout, stringResource.mMessage, BaseTransientBottomBar.LENGTH_LONG);
-                    snackbar.show();
+                    // do something after adding is completed
                 }else{
-                    Toast toast = Toast.makeText(getContext(), stringResource.mMessage, Toast.LENGTH_LONG);
-                    toast.show();
+                    // do something if adding was not successful
                 }
             }
         });

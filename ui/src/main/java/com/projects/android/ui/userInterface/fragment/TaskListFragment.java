@@ -1,14 +1,19 @@
 package com.projects.android.ui.userInterface.fragment;
 
 
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
@@ -36,6 +42,8 @@ import com.projects.android.ui.userInterface.adapter.TaskListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -86,9 +94,7 @@ public class TaskListFragment extends Fragment {
             @Override
             public void onChanged(Resource<List<PresentationTask>> listResource) {
                 if (listResource != null){
-                    Log.e("tasllistfragment", "onchanged");
                     handleDataState(listResource.mStatus, listResource.mData, listResource.mMessage);
-                    Log.e("tasllistfragment", "after handling");
                 }
             }
         });
@@ -109,20 +115,26 @@ public class TaskListFragment extends Fragment {
         }
     }
 
+
     private void setupScreenForSuccess(List<PresentationTask> data){
-        Log.e("tasllistfragment", "success");
         mProgressBar.setVisibility(View.GONE);
         if(data != null && !data.isEmpty()){
-            Log.e("tasllistfragment", "not empty");
-            List<TaskView> taskViewList = new ArrayList<>();
+            List<TaskView> taskViewList = data.stream().map(new Function<PresentationTask, TaskView>() {
+                @Override
+                public TaskView apply(PresentationTask presentationTask) {
+                    return taskMapper.mapToTaskView(presentationTask);
+                }
+            }).collect(Collectors.toList());
+           /* List<TaskView> taskViewList = new ArrayList<>();
             for (PresentationTask preTask : data){
                 taskViewList.add(taskMapper.mapToTaskView(preTask));
-            }
+            }*/
             mTaskListAdapter.submitList(taskViewList);
             mRecyclerView.setVisibility(View.VISIBLE);
         }else{
-            Log.e("tasllistfragment", "empty");
+            mRecyclerView.setVisibility(View.INVISIBLE);
             emptyView.setVisibility(View.VISIBLE);
+
         }
 
     }
@@ -130,12 +142,10 @@ public class TaskListFragment extends Fragment {
         mProgressBar.setVisibility(View.GONE);
         mRecyclerView.setVisibility(View.GONE);
         emptyView.setVisibility(View.GONE);
-        Snackbar snackbar = Snackbar.make(frameLayout, message, BaseTransientBottomBar.LENGTH_LONG);
 
     }
 
     private void setupScreenForLoadingState() {
-        Log.e("tasllistfragment", "loading");
         mProgressBar.setVisibility(View.VISIBLE);
         mRecyclerView.setVisibility(View.GONE);
         emptyView.setVisibility(View.GONE);
@@ -143,17 +153,49 @@ public class TaskListFragment extends Fragment {
     }
 
     private void setupRecyclerView(){
-        Log.e("tasllistfragment", "recyclerview");
         mRecyclerView = fragmentTaskListBinding.taskListRecyclerView;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        new ItemTouchHelper(itemTouchHelper).attachToRecyclerView(mRecyclerView);
         mRecyclerView.setAdapter(mTaskListAdapter);
+
     }
 
     private void setupStateViews(){
-        Log.e("tasllistfragment", "stateview");
         mProgressBar = fragmentTaskListBinding.progressBar;
         emptyView = fragmentTaskListBinding.emptyView;
         mFloatingActionButton = fragmentTaskListBinding.addTaskButton;
         frameLayout = fragmentTaskListBinding.frameLayout;
+    }
+
+    private ItemTouchHelper.SimpleCallback itemTouchHelper = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            List<TaskView> adapterList = mTaskListAdapter.getTaskViewList();
+            TaskView taskToBeDeleted = adapterList.get(viewHolder.getAdapterPosition());
+            adapterList.remove(viewHolder.getAdapterPosition());
+            deleteTask(taskToBeDeleted);
+            mTaskListAdapter.notifyDataSetChanged();
+        }
+    };
+    private void deleteTask(TaskView task){
+        taskListViewModel.deleteTask(taskMapper.mapFromTaskView(task)).observe(this, new Observer<Resource<String>>() {
+            @Override
+            public void onChanged(Resource<String> stringResource) {
+                if(stringResource.mStatus == State.SUCCESS){
+                    if (mTaskListAdapter.getTaskViewList().isEmpty()){
+                        mRecyclerView.setVisibility(View.INVISIBLE);
+                        emptyView.setVisibility(View.VISIBLE);
+                    }
+                    // do something after deleting a task
+                }else{
+                   // do something if deleting was not successful
+                }
+            }
+        });
     }
 }
